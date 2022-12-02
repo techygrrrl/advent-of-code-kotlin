@@ -1,10 +1,41 @@
 
-/**
- * Calorie counting
- * https://adventofcode.com/2022/day/1
- */
+
 object Day01 {
+    /**
+     * Calorie counting
+     * https://adventofcode.com/2022/day/1
+     */
     fun calorieCountingForElves(): Int {
+        val answer = getElves()
+            .map { calories ->
+                calories.reduce { acc, curr ->
+                    acc + curr
+                }
+            }.maxOf { it }
+
+        return answer
+    }
+
+    /**
+     * https://adventofcode.com/2022/day/1#part2
+     */
+    fun topThree(): Int {
+        val elves = getElves()
+        val sums = elves.map { calories ->
+            calories.reduce { acc, curr ->
+                acc + curr
+            }
+        }.sortedDescending()
+
+//        println("sums = $sums")
+
+        val top3 = sums.subList(0, 3)
+        println("top 3 = $top3")
+
+        return top3.reduce { acc, curr -> acc + curr }
+    }
+
+    private fun getElves(): List<List<Int>> {
         val elves = mutableListOf<List<Int>>()
 
         val input = """
@@ -2249,15 +2280,15 @@ object Day01 {
         val groups = input.split("\n")
 
         val dividerIndexes= listOf(-1) +
-            groups
-            .mapIndexed { idx, group ->
-                if (group.isBlank()) {
-                    idx
-                } else {
-                    null
-                }
-            }.filterNotNull()
-            .toMutableList() + mutableListOf(groups.size)
+                groups
+                    .mapIndexed { idx, group ->
+                        if (group.isBlank()) {
+                            idx
+                        } else {
+                            null
+                        }
+                    }.filterNotNull()
+                    .toMutableList() + mutableListOf(groups.size)
 
         val zipped = dividerIndexes.zipWithNext()
 
@@ -2269,13 +2300,6 @@ object Day01 {
 
         println("Elves = $elves")
 
-        val answer = elves
-            .map { calories ->
-                calories.reduce { acc, curr ->
-                    acc + curr
-                }
-            }.maxOf { it }
-
-        return answer
+        return elves
     }
 }

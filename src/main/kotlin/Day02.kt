@@ -6,6 +6,24 @@ object Day02 {
         "Z" to 3,
     )
 
+    enum class GameResult {
+        WIN,
+        LOSE,
+        DRAW,
+    }
+
+    private val moveWinLoseDrawMap = mapOf<String, GameResult>(
+        "Y" to GameResult.DRAW,
+        "X" to GameResult.LOSE,
+        "Z" to GameResult.WIN,
+    )
+
+    private val resultToScoreMap = mapOf<GameResult, Int>(
+        GameResult.WIN to 6,
+        GameResult.LOSE to 0,
+        GameResult.DRAW to 3,
+    )
+
     private val scoreTree = mapOf(
         // Opponent -> You -> score
         "A" to mapOf(
@@ -2546,6 +2564,31 @@ object Day02 {
                 score
             }
             .reduce { acc, curr -> acc + curr }
+
+        return answer
+    }
+
+    fun rockPaperScissorsTargetResult(): Int {
+        val input = """
+            A Y
+            B X
+            C Z
+        """.trimIndent()
+
+        val rounds = input.split("\n")
+        val moves = rounds.map { it.split(" ") }
+
+//        println("moves = $moves")
+
+        val answer = moves.map { move ->
+            val desiredResultLetter = move[1]!!
+            val desiredResult = moveWinLoseDrawMap[desiredResultLetter]!!
+
+//            println("them = $them, desired result = $desiredResultLetter -> $desiredResult")
+
+            1 + resultToScoreMap[desiredResult]!!
+        }
+        .reduce { acc, curr -> acc + curr }
 
         return answer
     }

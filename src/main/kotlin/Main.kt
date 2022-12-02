@@ -7,8 +7,8 @@ fun main(args: Array<String>) {
 //    println(answer2)
 
     // Day 2
-//    val answer1 = Day02.rockPaperScissorsCheatSheet()
-//    println(answer1)
+    val answer1 = Day02.rockPaperScissorsCheatSheet()
+    println(answer1)
 
     val answer2 = Day02.rockPaperScissorsTargetResult()
     println(answer2)

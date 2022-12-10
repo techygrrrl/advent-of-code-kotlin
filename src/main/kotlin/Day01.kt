@@ -1,5 +1,3 @@
-
-
 object Day01 {
     /**
      * Calorie counting

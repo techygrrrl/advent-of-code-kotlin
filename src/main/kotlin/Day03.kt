@@ -9,7 +9,7 @@ object Day03 {
             .map { it[0] }
 
     fun solveRucksackPart1(): Int =
-        input.split("\n")
+        realInput.split("\n")
             .sumOf { ruckSack ->
                 val middleIndex = ruckSack.length / 2
                 val leftCompartment = ruckSack.substring(0, middleIndex).letters()
@@ -20,7 +20,23 @@ object Day03 {
                 getPriority(commonChar)
             }
 
-    private val input = """
+    fun solveRucksackPart2(): Int =
+        realInput
+            .split("\n").map { it.letters() }
+            .chunked(3)
+            .sumOf { group ->
+                val elf1 = group[0]
+                val elf2 = group[1]
+                val elf3 = group[2]
+
+                val badge = elf1.find { char ->
+                    elf2.indexOf(char) > -1 && elf3.indexOf(char) > -1
+                }!!
+
+                getPriority(badge)
+            }
+
+    private val realInput = """
         MVWpzTTrTFNNLtssjV
         hRJncnJCnhPCnBSbCQRhhQRPFHmsbHLzbLNHsjNNFmGGGsGF
         lSBQJBBBBcnccnQvBnPQznfrgwlrTZfDwTfWqrrpgMpw
@@ -321,5 +337,14 @@ object Day03 {
         VgPNWGbgSjGjfhRRFfzThtmtzF
         qLCQJBqqcPPmLHhHFz
         CcJvplQswNgZlNPSbS
+    """.trimIndent()
+
+    private val sampleInput = """
+        vJrwpWtwJgWrhcsFMMfFFhFp
+        jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+        PmmdzqPrVvPwwTWBwg
+        wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+        ttgJtRGJQctTZtZT
+        CrZsJsPPZsGzwwsLwLmpwMDw
     """.trimIndent()
 }

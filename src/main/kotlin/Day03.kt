@@ -20,9 +20,32 @@ object Day03 {
                 getPriority(commonChar)
             }
 
-    fun solveRucksackPart2(): Int =
+
+    /**
+     * Part 2 b) Solving part 2 with a dynamic group size
+     */
+    fun solveRucksackPart2WithGroupSize(groupSize: Int): Int {
+        return realInput
+            .split("\n")
+            .map { it.letters() }
+            .chunked(groupSize)
+            .sumOf { group ->
+                val sets = group.map { it.toSet() }
+                val commonChar = sets
+                    .reduce { a, b -> a.intersect(b) }
+                    .first()
+
+                getPriority(commonChar)
+            }
+    }
+
+    /**
+     * Part 2 a) Solving part 2 with a hardcoded group size of 3
+     */
+    fun solveRucksackPart2Original(): Int =
         realInput
-            .split("\n").map { it.letters() }
+            .split("\n")
+            .map { it.letters() }
             .chunked(3)
             .sumOf { group ->
                 val elf1 = group[0]

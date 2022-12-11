@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
     // Day 3
 //    val answer1 = Day03.solveRucksackPart1()
 //    println(answer1)
-    val answer2 = Day03.solveRucksackPart2()
-    println(answer2)
+    val answer2 = Day03.solveRucksackPart2WithGroupSize(3)
+    val answer2Original = Day03.solveRucksackPart2Original()
+    println("New answer $answer2 .. Original $answer2Original")
 }

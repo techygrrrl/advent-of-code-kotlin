@@ -10,11 +10,12 @@ object Day03 {
 
     fun solveRucksack(): Int =
         input.split("\n")
-            .sumOf { rawSack ->
-                val left = rawSack.substring(0, rawSack.length / 2).letters()
-                val right = rawSack.substring(rawSack.length / 2, rawSack.length).letters()
+            .sumOf { ruckSack ->
+                val middleIndex = ruckSack.length / 2
+                val leftCompartment = ruckSack.substring(0, middleIndex).letters()
+                val rightCompartment = ruckSack.substring(middleIndex, ruckSack.length).letters()
 
-                val commonChar = left.find { right.indexOf(it) > -1 }!!
+                val commonChar = leftCompartment.find { rightCompartment.indexOf(it) > -1 }!!
 
                 getPriority(commonChar)
             }

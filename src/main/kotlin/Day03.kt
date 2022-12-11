@@ -3,36 +3,21 @@ object Day03 {
     private fun getPriority(char: Char): Int =
         (('a'..'z') + ('A'..'Z')).indexOf(char) + 1
 
-    fun solveRucksack() {
-        val ruckSacks: List<Pair<String, String>> = input
-            .split("\n")
-            .map { rawSack ->
-                Pair(
-                    rawSack.substring(0, rawSack.length / 2),
-                    rawSack.substring(rawSack.length / 2, rawSack.length),
-                )
+    private fun String.letters(): List<Char> =
+        this.split("")
+            .filter { it.isNotBlank() }
+            .map { it[0] }
+
+    fun solveRucksack(): Int =
+        input.split("\n")
+            .sumOf { rawSack ->
+                val left = rawSack.substring(0, rawSack.length / 2).letters()
+                val right = rawSack.substring(rawSack.length / 2, rawSack.length).letters()
+
+                val commonChar = left.find { right.indexOf(it) > -1 }!!
+
+                getPriority(commonChar)
             }
-
-        val prioritySum: Int = ruckSacks.map { sack ->
-            val (left, right) = sack
-            var priority = 0
-
-            val leftCompartment: List<String> = left.split("").filter { it.isNotBlank() }
-            val rightCompartment: List<String> = right.split("").filter { it.isNotBlank() }
-
-            leftCompartment.forEach { str ->
-                val commonLetterIdx = rightCompartment.indexOf(str)
-                if (commonLetterIdx > -1) {
-                    priority = getPriority(str.toCharArray()[0])
-                    return@forEach
-                }
-            }
-
-            return@map priority
-        }.sum()
-
-        println("priorities = $prioritySum")
-    }
 
     private val input = """
         vJrwpWtwJgWrhcsFMMfFFhFp

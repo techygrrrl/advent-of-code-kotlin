@@ -8,7 +8,7 @@ object Day03 {
             .filter { it.isNotBlank() }
             .map { it[0] }
 
-    fun solveRucksack(): Int =
+    fun solveRucksackPart1(): Int =
         input.split("\n")
             .sumOf { ruckSack ->
                 val middleIndex = ruckSack.length / 2
